@@ -4,7 +4,8 @@ import Navbar from './Navbar';
 import MovieCard from './MovieCard';
 //import './App.css';
 
-function App() {
+function App(props) {
+  const movies = props.store.getState();
   return (
     <div className="App">
       <Navbar />
@@ -15,8 +16,8 @@ function App() {
         </div>
 
         <div className="list">
-        {data.map((movie) => (
-          <MovieCard movie={movie} />
+        {data.map((movie,index) => (
+          <MovieCard movie={movie} key={`movie-${index}`}/>
         ))}
         </div>
       </div>
