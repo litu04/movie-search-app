@@ -8,6 +8,7 @@ import { addMovies,setShowFavourites } from '../actions';
 class App extends React.Component {
   componentDidMount(){
     const {store} = this.props;
+    console.log("store value",this.props);
     store.subscribe(()=> {  // once after action is dispatched subscription callback is called
       console.log("Updated");
       this.forceUpdate(); // not recomended
@@ -16,13 +17,13 @@ class App extends React.Component {
     // dispatch an action to add the movies to the store
     store.dispatch(addMovies(data));
     
-    console.log("state",this.props.store.getState());
+    console.log("state",this.props);
   }
 
   isMovieFavourite = (movie) => {
-    const {favourites} = this.props.store.getState();
+    const {movies} = this.props.store.getState();
 
-    const index = favourites.indexOf(movie);
+    const index = movies.favourites.indexOf(movie);
 
     if (index !== -1){
       return true;
@@ -34,8 +35,12 @@ class App extends React.Component {
   }
   render() {
     console.log("rendered");
-    const {list,favourites,show_favourites} = this.props.store.getState();
+    const {movies} = this.props.store.getState(); // {movies: {},search: {}}
+    console.log("movies get",movies);
+    const {list,favourites,show_favourites} = movies;
     const displayMovies = show_favourites ? favourites:list;
+    console.log("display movies",displayMovies);
+    console.log("list",list);
     console.log("new state",this.props.store.getState());
     return (
       <div className="App">
